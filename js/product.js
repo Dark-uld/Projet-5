@@ -54,7 +54,7 @@ function addPanier (event){
     document.getElementById("addToCart").addEventListener("click", ajoutPanier);
     let itemDejaPresent ='';
 
-    // Fonction pour ajouter un item
+    // Fonction pour ajouter un item dans localStorage
     function ajoutPanier(event){
         let numberOfItem = Number(document.getElementById('quantity').value);
         let itemColor = document.getElementById('colors').value;
@@ -78,11 +78,11 @@ function addPanier (event){
             );
             // Fin - Incrémenter la quantité à un item présent dans le panier
         }
-        console.log(localStorage);
     }
+     // Fin - Fonction pour ajouter un item dans localStorage
     
-
 }
+// Fin - Ajçuter un item dans la panier
 
 
 

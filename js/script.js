@@ -41,6 +41,4 @@ function injectionProduits(data) {
 
 window.onload = function() {
     affichageProduits();
-   
-    
 }
