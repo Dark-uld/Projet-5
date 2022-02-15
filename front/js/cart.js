@@ -19,6 +19,7 @@ function injectionItemPanier(data, callback1, callback2) {
     let produitConteneur = "";
     //Boucle pour récupérez chaque item de l'API étant dans le panier
     for ( let i = 0 ; i < localStorage.length; i++){
+        // 
         let keyLocalStorage = localStorage.key(i);
         let itemDansLS = JSON.parse(localStorage.getItem(keyLocalStorage));
         // Fin - Boucle pour récupérez chaque array dans localStorage    
@@ -43,7 +44,7 @@ function injectionItemPanier(data, callback1, callback2) {
                             <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${itemDansLS.quantity}">
                         </div>
                         <div class="cart__item__content__settings__delete">
-                            <p class="deleteItem" id="${product.name} ${itemDansLS.couleur}">Supprimer</p>
+                            <p class="deleteItem">Supprimer</p>
                         </div>
                     </div>
                     </div>
@@ -95,9 +96,9 @@ function supprimerItem(){
 
 function verificationFormulaire(){
     // Regle de verification
-    let queDesLettres = /^([\w\p{L} ]+)$/;
-    let verifAddress = /^[\d]+\s*[\w\p{L} .-]+$/;
-    let verifMail = /^[\d\w-_\p{L}]+[@]+[\d\w-_\p{L}]+[.]+[\w]+$/;
+    let queDesLettres = /^[^@&"()!_$*€£`+=\/;?#\d]+$/;
+    let verifAddress = /(?!^\d+$)^[^@&"()!_$*€£`+=\/;?#]+$/;
+    let verifMail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
 
     let prenom = document.getElementById('firstName');
     let nom = document.getElementById("lastName");
@@ -145,6 +146,7 @@ function verificationFormulaire(){
 
 // Verification de l'input
 function verifierInput(event, regle){
+    // on renvoie le résultat de la verification
     return event.target.value.match(regle)
 }
 

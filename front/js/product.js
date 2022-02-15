@@ -14,7 +14,7 @@ function affichageProduit() {
         
     })
     .then(function(data){
-        ficheProduit(data);
+        ficheProduit(data, addPanier);
     })
     .catch(function() {
         alert("Une erreur s'est produite");
@@ -23,7 +23,7 @@ function affichageProduit() {
 
 // Recuperez la fiche Produit
 
-function ficheProduit(data) {
+function ficheProduit(data, callback) {
 
 
     let optionColor = '';
@@ -47,37 +47,56 @@ function ficheProduit(data) {
     }
 
     // Fin -- Modifiez la fiche produit selon l'id du produit
+    callback();
 }
 
 // Ajçuter un item dans la panier
-function addPanier (event){
+function addPanier (){
     document.getElementById("addToCart").addEventListener("click", ajoutPanier);
     let itemDejaPresent ='';
 
     // Fonction pour ajouter un item dans localStorage
-    function ajoutPanier(event){
+    function ajoutPanier(){
         let numberOfItem = Number(document.getElementById('quantity').value);
         let itemColor = document.getElementById('colors').value;
         let item = document.getElementById('title').innerText +" "+itemColor;
-
-        // Ajouter un item non présent dans le panier
-        if(!localStorage.getItem(item)) {
-            localStorage.setItem(`${item}`, 
-                JSON.stringify({
-                    id: `${urlId}` , quantity: `${numberOfItem}`, couleur: `${itemColor}`
-                })
-            );
+        // Verification couleur etuantité avant ajout dans panier
+        if (itemColor == '' & (numberOfItem < 1 || numberOfItem > 100)){
+            alert("Choississez un coloris et une quantité entre 1 et 100");
+        } else if (!itemColor){
+            alert("Choississez un coloris");
+        } else if(numberOfItem < 1 || numberOfItem > 100){
+            if (numberOfItem > 100){
+                alert("Choississez une quantité entre 1 et 100");
+            } else if(numberOfItem < 1){
+                alert("Choississez une quantité correct");
+            }
+        }else{
+            // Ajouter un item non présent dans le panier
+            if(!localStorage.getItem(item)) {
+                localStorage.setItem(`${item}`, 
+                    JSON.stringify({
+                        id: `${urlId}` , quantity: `${numberOfItem}`, couleur: `${itemColor}`
+                    })
+                );
             // Fin - Ajouter un item non présent dans le panier
-        } else {
+            } else {
             // Incrémenter la quantité à un item présent dans le panier
-            itemDejaPresent = JSON.parse(localStorage.getItem(item));
-            let newQuantityCanap= Number(itemDejaPresent.quantity) + numberOfItem;
-            itemDejaPresent.quantity = `${newQuantityCanap}`;
-            localStorage.setItem(`${item}`, 
-                JSON.stringify(itemDejaPresent)
-            );
-            // Fin - Incrémenter la quantité à un item présent dans le panier
+                itemDejaPresent = JSON.parse(localStorage.getItem(item));
+                let newQuantityCanap= Number(itemDejaPresent.quantity) + numberOfItem;
+                if (newQuantityCanap>100){
+                    alert ("Quantité dans le panier de supérieur à 100")
+                } else {
+                    itemDejaPresent.quantity = `${newQuantityCanap}`;
+                    localStorage.setItem(`${item}`, 
+                        JSON.stringify(itemDejaPresent)
+                    );
+                }
+            
+             // Fin - Incrémenter la quantité à un item présent dans le panier
+            }
         }
+        console.log(localStorage);
     }
      // Fin - Fonction pour ajouter un item dans localStorage
     
@@ -90,6 +109,5 @@ function addPanier (event){
 
 window.onload = function() {
     affichageProduit();
-    addPanier();
 }
 
