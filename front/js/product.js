@@ -79,6 +79,7 @@ function addPanier (){
                         id: `${urlId}` , quantity: `${numberOfItem}`, couleur: `${itemColor}`
                     })
                 );
+                alert('Article ajouté dans le panier')
             // Fin - Ajouter un item non présent dans le panier
             } else {
             // Incrémenter la quantité à un item présent dans le panier
@@ -91,15 +92,15 @@ function addPanier (){
                     localStorage.setItem(`${item}`, 
                         JSON.stringify(itemDejaPresent)
                     );
+                    alert('Article ajouté dans le panier')
                 }
-            
+                
+
              // Fin - Incrémenter la quantité à un item présent dans le panier
             }
         }
-        console.log(localStorage);
     }
      // Fin - Fonction pour ajouter un item dans localStorage
-    
 }
 // Fin - Ajçuter un item dans la panier
 
