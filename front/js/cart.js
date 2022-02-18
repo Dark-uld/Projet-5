@@ -100,12 +100,17 @@ function recupNomArticle(event){
 function modifNombreArticle(data){
     let itemSelectionne = document.getElementsByClassName('itemQuantity');
     for (let i =0; i < itemSelectionne.length;i++){
-        itemSelectionne[i].addEventListener("input", function(event){
+        itemSelectionne[i].addEventListener("change", function(event){
             let dataArticleChoisi= recupNomArticle(event);
             let itemDejaPresent = JSON.parse(localStorage.getItem(dataArticleChoisi));
-            itemDejaPresent.quantity = event.target.value;
-            localStorage.setItem(dataArticleChoisi,  JSON.stringify(itemDejaPresent) );
-            location.reload();
+            if (event.target.value <1 || event.target.value >100) {
+                alert('Quantité invalide, choisir une valeur entre 1 et 100');
+            } else {
+                itemDejaPresent.quantity = event.target.value;
+                localStorage.setItem(dataArticleChoisi,  JSON.stringify(itemDejaPresent) );
+                location.reload();
+            }
+            
         })
     }
     calculTotal(data);
@@ -238,7 +243,6 @@ function validerFormulaire(){
             fetch("http://localhost:3000/api/products/order", command)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 localStorage.clear();
                 document.location.href = `confirmation.html?=${data.orderId}`;
             })
