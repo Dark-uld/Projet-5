@@ -123,10 +123,11 @@ function supprimerItem(data){
         itemSelectionne[i].addEventListener("click", function(event){
             let dataArticleChoisi= recupNomArticle(event);
             localStorage.removeItem(dataArticleChoisi);
+            alert('Produit supprimé, cliquer sur ok pour rafraichir la page');
             location.reload();
-            alert('Produit supprimé')
         });
     }
+    
     calculTotal(data);
 }
 
