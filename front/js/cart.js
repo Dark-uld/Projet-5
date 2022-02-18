@@ -266,13 +266,6 @@ function verifierInput(event, regle){
 }
 
 
-    let lol = document.getElementsByClassName('cart__order__form__question');
-    for (let item of lol){
-       console.log( item.lastElementChild.innerHTML)
-    }
-
-
-
 // Chargement de la page
 
 window.onload = function() {
