@@ -124,6 +124,7 @@ function supprimerItem(data){
             let dataArticleChoisi= recupNomArticle(event);
             localStorage.removeItem(dataArticleChoisi);
             location.reload();
+            alert('Produit supprimé')
         });
     }
     calculTotal(data);
